@@ -37,8 +37,8 @@ class DepositoStrumenti:
         with open(file_path) as file:
             reader = csv.reader(file)
             for line in reader:
-                strumento=strumento(line[0],line[1],line[2],int(line[3]),float(line[4]))
-                self.strumenti[line[0]]=strumento
+                strumento_file=strumento(line[0],line[1],line[2],int(line[3]),float(line[4]))
+                self.strumenti[line[0]]=strumento_file
 
 
 
@@ -46,7 +46,7 @@ class DepositoStrumenti:
     def aggiungi_strumento(self, tipo, marca, anno_acquisto, valore):
         """Aggiunge uno strumento nel deposito: aggiunge solo nel sistema e non aggiorna il file"""
         # TODO
-        nuovo_codice='s{len(self.strumenti)}'
+        nuovo_codice=f's{len(self.strumenti)+1}'
         nuovo_strumento=strumento(nuovo_codice,tipo,marca,anno_acquisto,valore)
         self.strumenti[nuovo_codice]=nuovo_strumento
 
@@ -57,6 +57,7 @@ class DepositoStrumenti:
         for codice in self.strumenti:
             lista_ordinare.append(self.strumenti[codice])
         lista_ordinati=sorted(lista_ordinare, key=attrgetter('marca'))
+        return lista_ordinati
 
     def nuovo_prestito(self, data, id_strumento, cognome_allievo):
         """Crea un nuovo prestito"""
